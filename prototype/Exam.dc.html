@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ITS Training Academy — Final exam</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#0E2A47}a:hover{color:#16202B}
+</style>
+</helmet>
+<div style="font-family: Inter, system-ui, sans-serif; color: #16202B; background: #F5F7FA; min-height: 100vh">
+
+<header style="background: #0E2A47; color: #FFFFFF">
+<div style="max-width: 960px; margin: 0 auto; padding: 14px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="Lesson.dc.html" style="display: flex; align-items: center; gap: 10px; color: #FFFFFF; text-decoration: none; font-size: 15px">
+<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4l-6 6 6 6" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+Back to course
+</a>
+<span style="font-size: 14px">Attempt 1 of 2 · Pass mark 80%</span>
+</div>
+</header>
+
+<main style="max-width: 960px; margin: 0 auto; padding: 32px 24px 64px; display: flex; flex-direction: column; gap: 24px">
+<div>
+<p style="margin: 0 0 6px; font-size: 14px; color: #4A5868">Forklift Operator (Counterbalance)</p>
+<h1 style="margin: 0 0 8px; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 34px">Final exam</h1>
+<p style="margin: 0; font-size: 15px; color: #4A5868">The real exam draws 20 questions at random. This prototype shows 5.</p>
+</div>
+
+<sc-for list="{{questions}}" as="q" hint-placeholder-count="5">
+<fieldset style="margin: 0; background: #FFFFFF; border: 1px solid #D9DEE5; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<legend style="padding: 0; float: left; width: 100%; margin-bottom: 4px"><span style="display: block; font-size: 13px; color: #4A5868; margin-bottom: 6px">Question {{q.n}} · Module {{q.module}}</span><span style="display: block; font-size: 18px; font-weight: 600; line-height: 1.4">{{q.text}}</span></legend>
+<sc-for list="{{q.options}}" as="o" hint-placeholder-count="4">
+<button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="{{o.style}}"><span style="{{o.dotStyle}}">{{o.letter}}</span><span style="flex: 1 1 auto">{{o.text}}</span><span style="font-size: 13px; font-weight: 700; color: {{o.tagColor}}">{{o.tag}}</span></button>
+</sc-for>
+</fieldset>
+</sc-for>
+
+<sc-if value="{{notSubmitted}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
+<span style="font-size: 15px; color: #4A5868">{{answeredText}}</span>
+<button type="button" onClick="{{submit}}" disabled="{{notReady}}" style="{{submitStyle}}">Submit answers</button>
+</div>
+</sc-if>
+
+<sc-if value="{{submitted}}" hint-placeholder-val="{{ false }}">
+<div style="{{resultStyle}}">
+<p style="margin: 0 0 6px; font-size: 14px; font-weight: 600">{{resultLabel}}</p>
+<p style="margin: 0 0 12px; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 40px; font-weight: 700">{{score}}%</p>
+<p style="margin: 0 0 20px; font-size: 16px; line-height: 1.5">{{resultText}}</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<sc-if value="{{passed}}" hint-placeholder-val="{{ true }}">
+<a href="Evaluator.dc.html" style="background: #0E2A47; color: #FFFFFF; text-decoration: none; font-weight: 600; padding: 14px 24px; border-radius: 8px">Book practical assessment</a>
+</sc-if>
+<button type="button" onClick="{{reset}}" style="font: inherit; font-weight: 600; padding: 13px 22px; border-radius: 8px; border: 1.5px solid #0E2A47; background: #FFFFFF; color: #0E2A47; cursor: pointer">Try again (prototype)</button>
+</div>
+</div>
+</sc-if>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#F5B800","options":["#F5B800","#FF8A00","#2EC4B6"]},"$preview":{"width":1280,"height":1180}}'>
+class Component extends DCLogic {
+constructor(props) { super(props); this.state = { answers: {}, submitted: false }; }
+renderVals() {
+const accent = this.props.accent ?? '#F5B800';
+const bank = [
+{ module: 3, text: 'What does the capacity (data) plate tell you?', options: ['The truck’s top speed', 'The maximum load at a stated load centre and lift height', 'The service date', 'The fuel type only'], correct: 1 },
+{ module: 4, text: 'When must the pre-use inspection be done?', options: ['Once a month', 'Before the forklift is used on each shift', 'Only after a breakdown', 'Only when the supervisor asks'], correct: 1 },
+{ module: 5, text: 'The load blocks your forward view. What do you do?', options: ['Drive forward slowly and sound the horn', 'Raise the load to see under it', 'Travel in reverse, looking in the direction of travel', 'Ask a pedestrian to walk in front'], correct: 2 },
+{ module: 6, text: 'May anyone stand or walk under raised forks?', options: ['Yes, if it is quick', 'Yes, if wearing a hard hat', 'No, never', 'Yes, if the engine is off'], correct: 2 },
+{ module: 7, text: 'Driving down a ramp with a load, you should:', options: ['Drive forward with the load in front', 'Travel in reverse, keeping the load uphill', 'Turn on the ramp to look', 'Raise the load for visibility'], correct: 1 }
+];
+const { answers, submitted } = this.state;
+const letters = ['A', 'B', 'C', 'D'];
+const questions = bank.map((q, qi) => ({
+n: qi + 1, module: q.module, text: q.text,
+options: q.options.map((t, oi) => {
+const chosen = answers[qi] === oi, isRight = oi === q.correct;
+let bg = '#FFFFFF', border = '#D9DEE5', tag = '', tagColor = '#16202B';
+if (!submitted && chosen) { bg = '#FFF6D6'; border = '#0E2A47'; }
+if (submitted && isRight) { bg = '#E6F4EC'; border = '#1E7B4F'; tag = 'Correct answer'; tagColor = '#1E7B4F'; }
+if (submitted && chosen && !isRight) { bg = '#FBE9E7'; border = '#B3261E'; tag = 'Your answer'; tagColor = '#B3261E'; }
+return {
+letter: letters[oi], text: t, pressed: chosen ? 'true' : 'false', tag, tagColor,
+pick: () => { if (!this.state.submitted) this.setState({ answers: { ...this.state.answers, [qi]: oi } }); },
+style: 'font: inherit; font-size: 16px; text-align: left; display: flex; gap: 12px; align-items: center; width: 100%; min-height: 52px; padding: 12px 16px; border-radius: 10px; cursor: pointer; color: #16202B; background: ' + bg + '; border: ' + (chosen || (submitted && isRight) ? '2px' : '1px') + ' solid ' + border + ';',
+dotStyle: 'flex: 0 0 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; ' + (chosen ? 'background: #0E2A47; color: #FFFFFF;' : 'background: #E8ECF1; color: #4A5868;')
+};
+})
+}));
+const answered = Object.keys(answers).length;
+const right = bank.filter((q, i) => answers[i] === q.correct).length;
+const score = Math.round(right / bank.length * 100);
+const passed = score >= 80;
+return {
+accent, questions, submitted, notSubmitted: !submitted,
+answeredText: answered + ' of ' + bank.length + ' answered',
+notReady: answered < bank.length,
+submitStyle: 'font: inherit; font-weight: 600; font-size: 16px; padding: 15px 28px; border-radius: 8px; border: none; ' + (answered < bank.length ? 'background: #D9DEE5; color: #4A5868; cursor: not-allowed;' : 'background: ' + accent + '; color: #0E2A47; cursor: pointer;'),
+submit: () => this.setState({ submitted: true }),
+reset: () => this.setState({ answers: {}, submitted: false }),
+score, passed,
+resultLabel: passed ? 'Passed' : 'Not passed',
+resultText: passed ? 'Well done. Next, book your practical assessment with an ITS inspector. Your certificate is issued once you pass it.' : 'You need 80% to pass. Review the modules marked in red, then use your second attempt.',
+resultStyle: 'border-radius: 12px; padding: 28px; ' + (passed ? 'background: #E6F4EC; border: 2px solid #1E7B4F; color: #0F3D27;' : 'background: #FBE9E7; border: 2px solid #B3261E; color: #5C1410;')
+};
+}
+}
+</script>
+</body>
+</html>

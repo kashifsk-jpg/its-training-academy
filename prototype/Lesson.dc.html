@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ITS Training Academy — Lesson player</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#0E2A47}a:hover{color:#16202B}
+</style>
+</helmet>
+<div style="font-family: Inter, system-ui, sans-serif; color: #16202B; background: #F5F7FA; min-height: 100vh">
+
+<header style="background: #0E2A47; color: #FFFFFF">
+<div style="padding: 14px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="Course.dc.html" style="display: flex; align-items: center; gap: 10px; color: #FFFFFF; text-decoration: none; font-size: 15px">
+<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4l-6 6 6 6" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+Forklift Operator (Counterbalance)
+</a>
+<div style="display: flex; align-items: center; gap: 12px; font-size: 14px; flex: 0 1 320px">
+<span>{{pct}}% complete</span>
+<div role="progressbar" aria-label="Course progress" aria-valuenow="{{pct}}" aria-valuemin="0" aria-valuemax="100" style="flex: 1 1 auto; height: 8px; background: #2B4A6B; border-radius: 999px; overflow: hidden"><div style="height: 100%; width: {{pctWidth}}; background: {{accent}}"></div></div>
+</div>
+</div>
+</header>
+
+<div style="display: flex; flex-wrap: wrap">
+<nav aria-label="Course modules" style="flex: 1 1 280px; background: #FFFFFF; border-right: 1px solid #D9DEE5; padding: 20px 0">
+<p style="margin: 0 20px 12px; font-size: 13px; font-weight: 600; color: #4A5868; text-transform: uppercase; letter-spacing: 0.06em">Modules</p>
+<ol style="margin: 0; padding: 0; list-style: none">
+<sc-for list="{{modules}}" as="m" hint-placeholder-count="10">
+<li style="{{m.rowStyle}}">
+<span style="{{m.badgeStyle}}">{{m.mark}}</span>
+<span style="font-size: 14px; line-height: 1.35">{{m.title}}</span>
+</li>
+</sc-for>
+</ol>
+</nav>
+
+<main style="flex: 999 1 640px; min-width: 0; padding: 28px 32px 48px; display: flex; flex-direction: column; gap: 24px">
+<div>
+<p style="margin: 0 0 6px; font-size: 14px; color: #4A5868">Module 4 · Lesson 1 of 3</p>
+<h1 style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 32px">Pre-use inspection: the two-part check</h1>
+</div>
+
+<div style="position: relative; width: 100%; max-width: 900px; aspect-ratio: 16 / 9; background: #0B1F35; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; color: #FFFFFF">
+<button type="button" aria-label="Play video" style="width: 76px; height: 76px; border-radius: 50%; border: none; background: {{accent}}; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><path d="M9 6l14 8-14 8z" fill="#0E2A47"></path></svg></button>
+<p style="margin: 0; font-size: 15px; color: #D6DEE8">HeyGen presenter video · about 90 seconds · Arabic and English</p>
+<span style="position: absolute; left: 16px; bottom: 14px; font-size: 13px; color: #D6DEE8">Subtitles: English</span>
+</div>
+
+<div style="max-width: 900px; background: #FFFFFF; border: 1px solid #D9DEE5; border-radius: 12px; padding: 24px">
+<h2 style="margin: 0 0 12px; font-size: 18px">Key points</h2>
+<ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 16px; line-height: 1.5">
+<li>Check the forklift before using it on every shift.</li>
+<li>Visual check with the engine off: forks, mast chains, leaks, tyres, overhead guard, data plate.</li>
+<li>Operational check: horn, lights, brakes, parking brake, steering, lift and tilt.</li>
+<li>Found a defect? Do not use the forklift. Tag it out and report it.</li>
+</ul>
+<p style="margin: 16px 0 0; font-size: 14px"><a href="#">Download: pre-use inspection checklist (PDF)</a></p>
+</div>
+
+<div style="max-width: 900px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center">
+<a href="Course.dc.html" style="border: 1.5px solid #0E2A47; color: #0E2A47; text-decoration: none; font-weight: 600; padding: 13px 22px; border-radius: 8px">Previous lesson</a>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
+<span style="font-size: 13px; color: #4A5868">Prototype shortcut:</span>
+<a href="Exam.dc.html" style="color: #0E2A47; font-weight: 600">Jump to final exam</a>
+<a href="Lesson.dc.html" style="background: #0E2A47; color: #FFFFFF; text-decoration: none; font-weight: 600; padding: 14px 24px; border-radius: 8px">Mark complete and continue</a>
+</div>
+</div>
+</main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#F5B800","options":["#F5B800","#FF8A00","#2EC4B6"]},"$preview":{"width":1280,"height":960}}'>
+class Component extends DCLogic {
+renderVals() {
+const titles = ['Introduction and operator duties', 'Know your forklift', 'Capacity and stability', 'Pre-use inspection', 'Safe travel', 'Load handling and stacking', 'Ramps, docks and trailers', 'Refuelling and battery charging', 'Parking and shutdown', 'Accidents and emergencies'];
+const current = 3;
+const base = 'display: flex; gap: 12px; align-items: center; padding: 10px 20px; ';
+const modules = titles.map((t, i) => {
+const done = i < current, cur = i === current;
+return {
+title: t,
+mark: done ? '✓' : String(i + 1),
+rowStyle: base + (cur ? 'background: #FFF6D6; border-left: 4px solid #0E2A47; font-weight: 600;' : 'border-left: 4px solid transparent;') + (i > current ? ' color: #6B7785;' : ''),
+badgeStyle: 'flex: 0 0 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; ' + (done ? 'background: #1E7B4F; color: #FFFFFF;' : cur ? 'background: #0E2A47; color: #FFFFFF;' : 'background: #E8ECF1; color: #4A5868;')
+};
+});
+return { accent: this.props.accent ?? '#F5B800', modules, pct: 30, pctWidth: '30%' };
+}
+}
+</script>
+</body>
+</html>

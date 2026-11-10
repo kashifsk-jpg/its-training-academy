@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Verify an ITS certificate</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#0E2A47}a:hover{color:#16202B}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #F5F7FA; font-family: Inter, system-ui, sans-serif; color: #16202B; display: flex; flex-direction: column">
+
+<header style="background: #0E2A47; color: #FFFFFF; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 10px; color: #FFFFFF; text-decoration: none">
+<svg width="30" height="30" viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="8" fill="{{accent}}"></rect><path d="M8 22c0-6 4.5-10 10-10s10 4 10 10" fill="none" stroke="#0E2A47" stroke-width="3"></path><path d="M6 23h24" stroke="#0E2A47" stroke-width="3" stroke-linecap="round"></path></svg>
+<span style="font-family: 'Space Grotesk', Inter, sans-serif; font-weight: 700; font-size: 17px">ITS Training Academy</span>
+</a>
+<a href="HomeAr.dc.html" lang="ar" style="color: #FFFFFF; text-decoration: none; font-size: 15px; padding: 10px 4px">العربية</a>
+</header>
+
+<main style="padding: 24px 20px; display: flex; flex-direction: column; gap: 18px; flex: 1 1 auto">
+<h1 style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 24px">Certificate check</h1>
+
+<div style="{{cardStyle}}">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="{{iconWrap}}"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="{{iconPath}}" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+<p style="margin: 0; font-size: 24px; font-weight: 700">{{statusLabel}}</p>
+</div>
+<p style="margin: 0; font-size: 15px; line-height: 1.5">{{statusText}}</p>
+</div>
+
+<dl style="margin: 0; background: #FFFFFF; border: 1px solid #D9DEE5; border-radius: 12px; padding: 4px 18px">
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="7">
+<div style="display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid #E8ECF1; font-size: 15px">
+<dt style="color: #4A5868">{{r.k}}</dt>
+<dd style="margin: 0; font-weight: 600; text-align: right">{{r.v}}</dd>
+</div>
+</sc-for>
+</dl>
+
+<p style="margin: 0; font-size: 13px; line-height: 1.5; color: #4A5868">Shows only what is printed on the certificate. Questions: [contact email].</p>
+<a href="Main.dc.html" style="margin-top: auto; text-align: center; border: 1.5px solid #0E2A47; color: #0E2A47; text-decoration: none; font-weight: 600; padding: 13px; border-radius: 8px">Check another certificate</a>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#F5B800","options":["#F5B800","#FF8A00","#2EC4B6"]},"status":{"editor":"enum","options":["Valid","Expired","Revoked"],"default":"Valid"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() {
+const status = this.props.status ?? 'Valid';
+const look = {
+Valid: { bg: '#E6F4EC', border: '#1E7B4F', ink: '#0F3D27', icon: '#1E7B4F', path: 'M5 11.5l4 4 8-9', text: 'This certificate was issued by ITS and is in date.' },
+Expired: { bg: '#FFF4E0', border: '#9A5B00', ink: '#4D2E00', icon: '#9A5B00', path: 'M11 6v6M11 16v.5', text: 'This certificate was issued by ITS but has passed its expiry date. The holder needs refresher training.' },
+Revoked: { bg: '#FBE9E7', border: '#B3261E', ink: '#5C1410', icon: '#B3261E', path: 'M6 6l10 10M16 6L6 16', text: 'This certificate has been withdrawn by ITS and is not valid.' }
+}[status] || {};
+return {
+accent: this.props.accent ?? '#F5B800',
+statusLabel: status, statusText: look.text, iconPath: look.path,
+cardStyle: 'border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 10px; background: ' + look.bg + '; border: 2px solid ' + look.border + '; color: ' + look.ink + ';',
+iconWrap: 'width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: ' + look.icon + ';',
+rows: [
+{ k: 'Name', v: 'Ahmed R. [Full name]' },
+{ k: 'Course', v: 'Forklift Operator (Counterbalance)' },
+{ k: 'Certificate no.', v: 'ITS-FL-7Q4K-92XM' },
+{ k: 'Practical evaluation', v: 'Passed' },
+{ k: 'Evaluator', v: '[Inspector name]' },
+{ k: 'Issued', v: '[Issue date]' },
+{ k: 'Valid until', v: '[Expiry date]' }
+]
+};
+}
+}
+</script>
+</body>
+</html>

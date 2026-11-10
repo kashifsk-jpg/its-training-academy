@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ITS Training Academy — Practical assessment</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#0E2A47}a:hover{color:#16202B}
+</style>
+</helmet>
+<div style="font-family: Inter, system-ui, sans-serif; color: #16202B; background: #F5F7FA; min-height: 100vh">
+
+<header style="background: #16202B; color: #FFFFFF">
+<div style="max-width: 1100px; margin: 0 auto; padding: 14px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<span style="font-family: 'Space Grotesk', Inter, sans-serif; font-weight: 700; font-size: 18px">ITS Evaluator</span>
+<span style="font-size: 14px">Signed in as [Inspector name]</span>
+</div>
+</header>
+
+<main style="max-width: 1100px; margin: 0 auto; padding: 28px 24px 64px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+
+<div style="flex: 999 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<div>
+<h1 style="margin: 0 0 6px; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 30px">Practical assessment</h1>
+<p style="margin: 0; font-size: 15px; color: #4A5868">Mark each item. Any failed critical item fails the assessment.</p>
+</div>
+
+<sc-for list="{{sections}}" as="sec" hint-placeholder-count="7">
+<section style="background: #FFFFFF; border: 1px solid #D9DEE5; border-radius: 12px; overflow: hidden">
+<h2 style="margin: 0; padding: 14px 20px; background: #E8ECF1; font-size: 16px">{{sec.name}}</h2>
+<sc-for list="{{sec.items}}" as="it" hint-placeholder-count="4">
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 12px 20px; border-top: 1px solid #E8ECF1">
+<span style="flex: 1 1 320px; min-width: 0; display: flex; gap: 10px; align-items: center; font-size: 15px; line-height: 1.4"><span style="color: #4A5868; font-size: 13px; width: 22px">{{it.n}}</span>{{it.text}}<sc-if value="{{it.critical}}" hint-placeholder-val="{{ false }}"><span style="background: #FBE9E7; color: #8C1D18; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px">Critical</span></sc-if></span>
+<span style="display: flex; gap: 8px">
+<button type="button" aria-pressed="{{it.isPass}}" onClick="{{it.pass}}" style="{{it.passStyle}}">Pass</button>
+<button type="button" aria-pressed="{{it.isFail}}" onClick="{{it.fail}}" style="{{it.failStyle}}">Fail</button>
+</span>
+</div>
+</sc-for>
+</section>
+</sc-for>
+</div>
+
+<aside style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<div style="background: #FFFFFF; border: 1px solid #D9DEE5; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+<p style="margin: 0; font-size: 13px; color: #4A5868; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em">Learner</p>
+<p style="margin: 0; font-weight: 700; font-size: 18px">Ahmed R.</p>
+<p style="margin: 0; color: #4A5868">Theory exam: passed, 85%</p>
+<p style="margin: 0; color: #4A5868">Forklift: [Make / model], [capacity] kg</p>
+<p style="margin: 0; color: #4A5868">Location: [Site], [date]</p>
+</div>
+<div style="{{outcomeStyle}}">
+<p style="margin: 0 0 4px; font-size: 13px; font-weight: 600">Result so far</p>
+<p style="margin: 0 0 12px; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 26px; font-weight: 700">{{outcome}}</p>
+<p style="margin: 0; font-size: 14px; line-height: 1.5">{{marked}} of {{total}} marked · {{critFails}} critical fails · {{otherFails}} other fails</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="notes" style="font-size: 14px; font-weight: 600">Evaluator notes</label>
+<textarea id="notes" rows="4" style="font: inherit; font-size: 15px; padding: 12px; border: 1px solid #B8C2CE; border-radius: 8px; resize: vertical"></textarea>
+</div>
+<button type="button" onClick="{{allPass}}" style="font: inherit; font-weight: 600; padding: 12px 18px; border-radius: 8px; border: 1.5px solid #0E2A47; background: #FFFFFF; color: #0E2A47; cursor: pointer">Mark all pass (prototype)</button>
+<sc-if value="{{canIssue}}" hint-placeholder-val="{{ false }}">
+<a href="Certificate.dc.html" style="background: {{accent}}; color: #0E2A47; text-decoration: none; font-weight: 600; font-size: 16px; padding: 15px 22px; border-radius: 8px; text-align: center">Sign and issue certificate</a>
+</sc-if>
+<sc-if value="{{cannotIssue}}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0; font-size: 14px; color: #4A5868; line-height: 1.5">{{blockText}}</p>
+</sc-if>
+</aside>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#F5B800","options":["#F5B800","#FF8A00","#2EC4B6"]},"$preview":{"width":1280,"height":1360}}'>
+class Component extends DCLogic {
+constructor(props) { super(props); this.state = { marks: {} }; }
+renderVals() {
+const accent = this.props.accent ?? '#F5B800';
+const list = [
+['Pre-use inspection', 'Checks forks, chains, mast and backrest for damage', true],
+['Pre-use inspection', 'Checks for hydraulic, oil and fuel leaks', true],
+['Pre-use inspection', 'Checks tyres, overhead guard and data plate', false],
+['Pre-use inspection', 'Checks fluids, battery or LPG cylinder', false],
+['Pre-use inspection', 'Tests horn, lights, alarm, brakes, parking brake, steering', true],
+['Pre-use inspection', 'Tests lift, lower and tilt controls', false],
+['Pre-use inspection', 'Records the check; knows what to do with a defect', false],
+['Mounting and start', 'Three points of contact; adjusts seat and mirrors', false],
+['Mounting and start', 'Fastens seat belt before moving', true],
+['Travel', 'Looks all around before moving; safe speed', false],
+['Travel', 'Looks in the direction of travel', true],
+['Travel', 'Slows and sounds horn at corners and doors', false],
+['Travel', 'Safe distance from pedestrians; stops when needed', true],
+['Travel', 'Allows for rear-end swing when turning', false],
+['Load handling', 'Checks load weight against capacity', true],
+['Load handling', 'Approaches square; sets fork spread', false],
+['Load handling', 'Forks fully in; load against backrest', false],
+['Load handling', 'Lifts slightly, tilts back, travels low', true],
+['Load handling', 'Checks overhead clearance before raising', false],
+['Stacking', 'Stops first; raises only when stationary', true],
+['Stacking', 'Tilts forward only over the stack', false],
+['Stacking', 'Lowers forks before moving away', false],
+['Ramp (if available)', 'Load uphill; does not turn on the slope', true],
+['Parking', 'Parks safely, not blocking exits', false],
+['Parking', 'Forks down, neutral, brake on, engine off, key out', true],
+['General', 'No one under raised forks or riding on the truck', true]
+];
+const marks = this.state.marks;
+const btn = (on, color, bg) => 'font: inherit; font-size: 14px; font-weight: 600; min-width: 72px; min-height: 44px; padding: 8px 14px; border-radius: 8px; cursor: pointer; ' + (on ? 'background: ' + bg + '; color: #FFFFFF; border: 2px solid ' + bg + ';' : 'background: #FFFFFF; color: ' + color + '; border: 1.5px solid #B8C2CE;');
+const sections = [];
+list.forEach(([sec, text, critical], i) => {
+let s = sections.find((x) => x.name === sec);
+if (!s) { s = { name: sec, items: [] }; sections.push(s); }
+const m = marks[i];
+s.items.push({
+n: String(i + 1), text, critical,
+isPass: m === 'pass' ? 'true' : 'false', isFail: m === 'fail' ? 'true' : 'false',
+pass: () => this.setState({ marks: { ...this.state.marks, [i]: 'pass' } }),
+fail: () => this.setState({ marks: { ...this.state.marks, [i]: 'fail' } }),
+passStyle: btn(m === 'pass', '#1E7B4F', '#1E7B4F'),
+failStyle: btn(m === 'fail', '#B3261E', '#B3261E')
+});
+});
+const total = list.length;
+const marked = Object.keys(marks).length;
+const critFails = list.filter((x, i) => x[2] && marks[i] === 'fail').length;
+const otherFails = list.filter((x, i) => !x[2] && marks[i] === 'fail').length;
+const failed = critFails > 0 || otherFails > 3;
+const done = marked === total;
+const outcome = failed ? 'Fail' : done ? 'Pass' : 'In progress';
+const canIssue = done && !failed;
+return {
+accent, sections, total, marked, critFails, otherFails, outcome,
+canIssue, cannotIssue: !canIssue,
+blockText: failed ? 'Assessment failed. The learner can book a re-assessment.' : 'Mark every item to finish. The certificate can be issued only when the result is Pass.',
+allPass: () => { const all = {}; list.forEach((x, i) => { all[i] = 'pass'; }); this.setState({ marks: all }); },
+outcomeStyle: 'border-radius: 12px; padding: 20px; ' + (failed ? 'background: #FBE9E7; border: 2px solid #B3261E; color: #5C1410;' : done ? 'background: #E6F4EC; border: 2px solid #1E7B4F; color: #0F3D27;' : 'background: #FFFFFF; border: 1px solid #D9DEE5; color: #16202B;')
+};
+}
+}
+</script>
+</body>
+</html>
